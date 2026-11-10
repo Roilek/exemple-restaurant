@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Le Comptoir des Saisons · Restaurant (exemple Opteamize)</title>
+<meta name="description" content="Exemple de site pour restaurant, réalisé par Opteamize. Commerce fictif.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--fond:#fff;--fond2:#f6f2ec;--encre:#1f1b17;--doux:#6b635b;--acc:#9a3b26;--acc2:#c9a36a;--sombre:#1d1915;--r:14px;--ombre:0 12px 32px rgba(0,0,0,.09)}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{margin:0;font-family:var(--corps);color:var(--encre);background:var(--fond);line-height:1.65;font-size:17px;-webkit-font-smoothing:antialiased}
+img{max-width:100%;height:auto;display:block}a{color:inherit}
+.wrap{max-width:1160px;margin:0 auto;padding:0 20px}
+h1,h2,h3{font-family:var(--titre);font-weight:var(--poids,600);line-height:1.1;margin:0}
+h2{font-size:clamp(2rem,4.5vw,3.1rem)}h3{font-size:1.3rem}
+.sur{display:block;font-size:.8rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--acc);margin-bottom:12px}
+.lead{font-size:1.1rem;color:var(--doux);max-width:640px;margin:14px 0 0}
+section{padding:92px 0}
+.alt{background:var(--fond2)}
+.btn{display:inline-flex;align-items:center;gap:8px;font:inherit;font-weight:700;text-decoration:none;border-radius:var(--rb,999px);padding:13px 26px;border:2px solid transparent;cursor:pointer;transition:transform .15s,opacity .15s}
+.btn:hover{transform:translateY(-2px)}
+.btn-a{background:var(--acc);color:#fff}.btn-l{border-color:currentColor;background:transparent}
+/* bandeau exemple */
+.exemple{background:#111;color:#fff;font-size:.86rem;text-align:center;padding:8px 14px;line-height:1.35}
+.exemple b{color:#ffd84d}.exemple a{color:#ffd84d;font-weight:700}
+.annonce{display:none;background:var(--acc);color:#fff;text-align:center;font-weight:700;padding:10px 16px}
+.annonce.on{display:block;animation:flash 1.6s}
+header{position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--fond) 94%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid rgba(0,0,0,.07)}
+.nav{display:flex;align-items:center;gap:26px;height:72px}
+.marque{font-family:var(--titre);font-size:1.5rem;font-weight:var(--poids,600);text-decoration:none;letter-spacing:.01em;white-space:nowrap}
+.marque small{display:block;font-family:var(--corps);font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--doux);font-weight:600;margin-top:-2px}
+.nav nav{display:flex;gap:22px;margin-left:auto}
+.nav nav a{text-decoration:none;font-weight:600;font-size:.98rem}
+.nav nav a:hover{color:var(--acc)}
+.nav .btn{padding:10px 18px;font-size:.92rem}
+.burger{display:none;margin-left:auto;background:none;border:0;padding:8px;cursor:pointer;color:inherit}
+@media(max-width:940px){.nav nav{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;background:var(--fond);padding:6px 20px 16px;border-bottom:1px solid rgba(0,0,0,.08)}
+.nav nav.ouvert{display:flex}.nav nav a{padding:11px 0;font-size:1.15rem}.burger{display:block}.nav>.btn{display:none}}
+.hero{position:relative;min-height:min(86vh,780px);display:flex;align-items:flex-end;color:#fff;background:#222 var(--hero) center/cover}
+.hero:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.1) 25%,rgba(0,0,0,.72))}
+.hero .wrap{position:relative;width:100%;padding-bottom:80px}
+.hero h1{font-size:clamp(2.7rem,7.5vw,5.6rem);max-width:860px}
+.hero p{font-size:clamp(1.05rem,2vw,1.25rem);max-width:600px;margin:18px 0 28px;opacity:.93}
+.hero .cta{display:flex;gap:12px;flex-wrap:wrap}
+.deux{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.deux img{border-radius:var(--r);box-shadow:var(--ombre)}
+.deux p{color:var(--doux)}
+.chiffres{display:flex;gap:34px;flex-wrap:wrap;margin-top:24px}
+.chiffres b{display:block;font-family:var(--titre);font-size:2rem;color:var(--acc);line-height:1}
+.chiffres span{font-size:.9rem;color:var(--doux)}
+/* listes à prix */
+.onglets{display:flex;gap:8px;flex-wrap:wrap;margin:34px 0 26px}
+.onglet{font:inherit;font-weight:700;padding:9px 18px;border-radius:999px;border:2px solid var(--encre);background:transparent;cursor:pointer;color:var(--encre)}
+.onglet[aria-selected=true]{background:var(--encre);color:var(--fond)}
+.carte{display:grid;grid-template-columns:1fr 1fr;gap:6px 56px}
+.carte[hidden]{display:none}
+.plat{display:flex;gap:12px;align-items:baseline;padding:14px 0;border-bottom:1px dashed rgba(0,0,0,.15)}
+.plat div{flex:1}.plat b{font-weight:700}.plat small{display:block;color:var(--doux);font-size:.92rem}
+.plat .px{font-weight:700;color:var(--acc);white-space:nowrap}
+.encadre{margin-top:40px;background:var(--sombre);color:#fff;border-radius:var(--r);padding:28px 32px;display:flex;gap:24px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.encadre .sur{color:var(--acc2);margin:0 0 4px}
+.encadre h3{font-size:1.6rem}
+.encadre .px{font-family:var(--titre);font-size:2rem;color:var(--acc2)}
+/* grilles */
+.grille{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:22px;margin-top:40px}
+.tuile{background:var(--fond);border-radius:var(--r);overflow:hidden;box-shadow:var(--ombre)}
+.alt .tuile{background:#fff}
+.tuile img{aspect-ratio:4/5;object-fit:cover;width:100%}
+.tuile .tx{padding:14px 16px 18px}
+.tuile b{display:block;font-family:var(--titre);font-size:1.2rem;font-weight:var(--poids,600)}
+.tuile span{color:var(--doux);font-size:.93rem}
+.tuile .px{color:var(--acc);font-weight:700}
+.tuile .etiq{position:absolute;top:12px;left:12px;background:var(--acc);color:#fff;font-size:.78rem;font-weight:700;padding:4px 10px;border-radius:999px}
+.tuile{position:relative}
+.galerie{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:40px}
+.galerie img{aspect-ratio:1;object-fit:cover;width:100%;border-radius:10px}
+.galerie img:first-child{grid-column:span 2;grid-row:span 2}
+.cartes3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:40px}
+.bloc{background:#fff;border-radius:var(--r);padding:26px;box-shadow:var(--ombre)}
+.bloc .quand{font-weight:700;color:var(--acc);font-size:.9rem;text-transform:uppercase;letter-spacing:.08em}
+.bloc p{color:var(--doux);margin:8px 0 0}
+.avis{font-size:1.05rem}.avis p{color:var(--encre)}.avis small{display:block;margin-top:12px;color:var(--doux)}
+.etoiles{color:#e3a008;letter-spacing:2px}
+/* infos pratiques */
+.infos{display:grid;grid-template-columns:1fr 1fr 1fr;gap:22px}
+.horaires{width:100%;border-collapse:collapse;margin-top:10px}
+.horaires td{padding:7px 0;border-bottom:1px solid rgba(0,0,0,.08)}
+.horaires td:last-child{text-align:right;font-weight:700}
+.dark .horaires td{border-color:rgba(255,255,255,.12)}
+.dark{background:var(--sombre);color:#f3eee8}.dark h2,.dark h3{color:#fff}.dark .lead,.dark p{color:#cfc6bc}
+form{background:#fff;color:var(--encre);border-radius:var(--r);padding:28px;box-shadow:var(--ombre)}
+.champs{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+.plein{grid-column:1/-1}
+label{display:flex;flex-direction:column;gap:5px;font-size:.85rem;font-weight:700;color:var(--doux)}
+input,select,textarea{font:inherit;font-size:1rem;padding:11px 13px;border-radius:10px;border:1.5px solid #e2dcd5;background:#fcfaf8;color:var(--encre)}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--acc);border-color:var(--acc)}
+form .btn{width:100%;justify-content:center;margin-top:18px}
+.ok{display:none;margin:12px 0 0;font-weight:700;color:#2f7d32}
+.plan{width:100%;height:100%;min-height:300px;border:0;border-radius:var(--r)}
+footer{background:#0f0d0b;color:#a59d94;padding:30px 0;font-size:.9rem}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+footer a{color:#ffd84d}
+/* concept */
+.concept{background:linear-gradient(160deg,#151a2e,#232a48);color:#fff}
+.concept h2{color:#fff}.concept .lead{color:#c8cde3}
+.concept .sur{color:#ffd84d}
+.c-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:60px;align-items:center}
+.etapes{display:grid;gap:14px;margin-top:28px}
+.etape{display:flex;gap:16px;align-items:flex-start;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:14px 18px}
+.etape i{flex:none;font-style:normal;width:34px;height:34px;border-radius:50%;background:#ffd84d;color:#151a2e;font-weight:800;display:flex;align-items:center;justify-content:center}
+.etape b{display:block}.etape span{color:#c8cde3;font-size:.95rem}
+.tel{width:330px;max-width:100%;margin:0 auto;background:#0b0d17;border-radius:42px;padding:12px;box-shadow:0 30px 60px rgba(0,0,0,.45),inset 0 0 0 2px #333a55}
+.ecran{background:#f2f2f7;border-radius:32px;overflow:hidden;height:540px;display:flex;flex-direction:column;color:#111}
+.tete{background:#fff;padding:14px 16px 10px;border-bottom:1px solid #e5e5ea;display:flex;gap:10px;align-items:center}
+.tete .av{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#d97757,#f0a37f);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800}
+.tete b{font-size:.95rem;display:block;line-height:1.1}.tete small{color:#34c759;font-size:.75rem}
+.fil{flex:1;overflow-y:auto;padding:14px 12px;display:flex;flex-direction:column;gap:8px;font-size:.92rem;line-height:1.4}
+.bulle{max-width:82%;padding:9px 13px;border-radius:18px;animation:pop .25s ease-out}
+.moi{align-self:flex-end;background:#0a84ff;color:#fff;border-bottom-right-radius:5px}
+.ia{align-self:flex-start;background:#fff;border-bottom-left-radius:5px;box-shadow:0 1px 2px rgba(0,0,0,.06)}
+.ia a{color:#0a84ff;font-weight:700;text-decoration:none;cursor:pointer}
+.tape{display:inline-flex;gap:4px}.tape span{width:7px;height:7px;border-radius:50%;background:#999;animation:tape 1s infinite}
+.tape span:nth-child(2){animation-delay:.15s}.tape span:nth-child(3){animation-delay:.3s}
+.saisie{background:#fff;border-top:1px solid #e5e5ea;padding:10px 12px;color:#999;font-size:.88rem}
+.essais{margin-top:24px}
+.essais p{font-weight:700;margin:0 0 10px;color:#fff}
+.essais button{display:block;width:100%;text-align:left;font:inherit;font-size:.95rem;background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.18);border-radius:12px;padding:11px 14px;margin-bottom:8px;cursor:pointer}
+.essais button:hover:not(:disabled){background:rgba(255,216,77,.16);border-color:#ffd84d}
+.essais button:disabled{opacity:.45;cursor:default}
+.essais button:before{content:"💬  "}
+.offre{margin-top:26px;display:flex;gap:12px;flex-wrap:wrap}
+.offre .btn-a{background:#ffd84d;color:#151a2e}
+.nouveau{animation:flash 2.4s}
+@keyframes flash{0%,30%{box-shadow:0 0 0 4px #ffd84d;background-color:#fff6c8}100%{box-shadow:0 0 0 0 transparent}}
+@keyframes pop{from{transform:scale(.9);opacity:0}}
+@keyframes tape{50%{opacity:.25}}
+@media(max-width:900px){section{padding:68px 0}.deux,.c-grid,.infos{grid-template-columns:1fr;gap:36px}.carte{grid-template-columns:1fr}.cartes3{grid-template-columns:1fr}.galerie{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){body{font-size:16px}.exemple{font-size:.76rem}.champs{grid-template-columns:1fr}form{padding:20px}.grille{grid-template-columns:repeat(2,1fr);gap:12px}.tuile .tx{padding:10px 12px 14px}.tuile b{font-size:1.05rem}.hero{min-height:600px}.ecran{height:480px}}
+:root{--titre:Fraunces,serif;--corps:Inter,sans-serif;--acc:#9a3b26;--acc2:#d8a75b;--fond2:#f6f0e7;--sombre:#221a15;--hero:url(img/hero.webp)}</style>
+<script defer src="https://stats.eliorpap.fr/script.js" data-website-id="c527fc52-5570-4611-a9e8-56e4c7506f9c"></script>
+<script defer src="https://demo-opteamize.ch/suivi.js"></script>
+</head><body>
+<div class="exemple"><b>Exemple de site</b> pour restaurant, réalisé par Opteamize · commerce fictif · <a href="#concept">Voir comment il se modifie ↓</a></div>
+<div class="annonce" id="annonce"></div>
+<header><div class="wrap nav"><a class="marque" href="#top">Le Comptoir des Saisons<small>Bistrot de saison</small></a>
+<nav id="menu" aria-label="Menu principal"><a href="#carte">La carte</a><a href="#midi">Midi</a><a href="#maison">La maison</a><a href="#infos">Infos</a><a href="#concept">Le concept</a></nav><a class="btn btn-a" href="#reserver">Réserver</a>
+<button class="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button></div></header>
+<main id="top"><section class="hero"><div class="wrap"><h1>Une cuisine de saison, au cœur de Lausanne</h1><p>Produits du marché, vins de la région et une ardoise qui change chaque semaine. Midi et soir, du mardi au samedi.</p>
+<div class="cta"><a class="btn btn-a" href="#reserver">Réserver une table</a><a class="btn btn-l" href="#carte">Voir la carte</a></div></div></section>
+<section id="maison"><div class="wrap deux"><div><span class="sur">La maison</span><h2>Simple, frais, fait ici</h2>
+<p class="lead">Au Comptoir, la carte suit le rythme des producteurs : légumes de la plaine, viande du Gros-de-Vaud, poissons du lac quand la pêche est bonne.</p>
+<p>Tout est cuisiné sur place, des fonds de sauce aux desserts. Une salle de 40 couverts et, dès les beaux jours, une terrasse ombragée.</p>
+<div class="chiffres"><div><b>40</b><span>couverts</span></div><div><b>100 %</b><span>fait maison</span></div><div><b>5</b><span>producteurs partenaires</span></div></div></div>
+<img src="img/salle.webp" alt="La salle du restaurant" loading="lazy"></div></section>
+<section class="alt" id="carte"><div class="wrap"><span class="sur">La carte</span><h2>Ce que l'on cuisine en ce moment</h2>
+<div class="onglets" role="tablist"><button class="onglet" role="tab" id="t-c0" aria-controls="p-c0" aria-selected="true">Entrées</button><button class="onglet" role="tab" id="t-c1" aria-controls="p-c1" aria-selected="false">Plats</button><button class="onglet" role="tab" id="t-c2" aria-controls="p-c2" aria-selected="false">Desserts</button></div><div class="carte" role="tabpanel" id="p-c0" aria-labelledby="t-c0"><div class="plat" id="i-veloute"><div><b>Velouté de courge</b><small>Huile de noisette, graines torréfiées</small></div><span class="px">14.–</span></div><div class="plat" id="i-burrata"><div><b>Burrata crémeuse</b><small>Betteraves rôties, vinaigrette aux agrumes</small></div><span class="px">18.–</span></div><div class="plat" id="i-tartare"><div><b>Tartare de bœuf</b><small>Coupé au couteau, condiments maison</small></div><span class="px">19.–</span></div><div class="plat" id="i-salade"><div><b>Salade du marché</b><small>Selon l&#x27;arrivage</small></div><span class="px">12.–</span></div></div><div class="carte" role="tabpanel" id="p-c1" aria-labelledby="t-c1" hidden><div class="plat" id="i-perche"><div><b>Filets de perche du lac</b><small>Beurre citronné, pommes allumettes</small></div><span class="px">36.–</span></div><div class="plat" id="i-joue"><div><b>Joue de bœuf braisée</b><small>Purée à l&#x27;huile d&#x27;olive, jus corsé</small></div><span class="px">34.–</span></div><div class="plat" id="i-risotto"><div><b>Risotto aux champignons</b><small>Parmesan 24 mois, persil plat</small></div><span class="px">28.–</span></div><div class="plat" id="i-tartare-plat"><div><b>Tartare de bœuf, frites</b><small>Version plat, 180 g</small></div><span class="px">29.–</span></div></div><div class="carte" role="tabpanel" id="p-c2" aria-labelledby="t-c2" hidden><div class="plat" id="i-tarte"><div><b>Tarte fine aux pommes</b><small>Glace vanille de Bourbon</small></div><span class="px">12.–</span></div><div class="plat" id="i-mousse"><div><b>Mousse au chocolat noir</b><small>Fleur de sel, tuile croustillante</small></div><span class="px">11.–</span></div><div class="plat" id="i-fromages"><div><b>Assiette de fromages</b><small>De la fromagerie du coin</small></div><span class="px">14.–</span></div></div>
+<div class="encadre" id="midi"><div><span class="sur">Menu de midi · mardi à vendredi</span><h3 id="plat-du-jour">Plat du jour : émincé de volaille, riz pilaf</h3><span style="color:#cfc6bc">Avec salade ou soupe et café</span></div><span class="px">23.–</span></div></div></section>
+<section><div class="wrap"><span class="sur">En images</span><h2>La salle, la terrasse, l'assiette</h2>
+<div class="galerie"><img src="img/g1.webp" alt="La terrasse" loading="lazy"><img src="img/g2.webp" alt="Assiettes à partager" loading="lazy"><img src="img/g3.webp" alt="Pièce de bœuf et frites" loading="lazy"><img src="img/g4.webp" alt="Salade de pâtes" loading="lazy"><img src="img/g5.webp" alt="Plat à partager" loading="lazy"></div>
+<div class="deux" style="margin-top:70px"><img src="img/chef.webp" alt="Le chef en cuisine" loading="lazy"><div><span class="sur">Le chef</span><h2>Une cuisine qui suit le marché</h2><p class="lead">« Je fais ma carte le lundi matin, après avoir appelé mes producteurs. Ce qui est bon cette semaine finit dans l'assiette. »</p></div></div></div></section><section class="concept" id="concept"><div class="wrap c-grid">
+<div><span class="sur">Le concept Opteamize</span><h2>Ce site se modifie par simple message</h2>
+<p class="lead">Pas d'interface compliquée, pas de webmaster à relancer : le commerçant écrit à son assistant IA (Claude ou ChatGPT) depuis son téléphone, et le site est mis à jour.</p>
+<div class="etapes"><div class="etape"><i>1</i><div><b>Vous écrivez ce que vous voulez changer</b><span>Comme un message à un employé : un plat, un prix, un horaire, une photo.</span></div></div>
+<div class="etape"><i>2</i><div><b>L'IA fait la modification</b><span>Elle a accès à votre site, et seulement à votre site.</span></div></div>
+<div class="etape"><i>3</i><div><b>C'est en ligne</b><span>Vous vérifiez l'aperçu, vous validez, vos clients le voient.</span></div></div></div>
+<div class="essais"><p>Essayez, touchez une demande :</p><button type="button" data-i="0">Mets en plat du jour demain : risotto aux cèpes, 24.–</button><button type="button" data-i="1">On est fermés le lundi 24 novembre, mets un bandeau</button><button type="button" data-i="2">Le filet de perche passe à 38.–</button></div>
+<div class="offre"><a class="btn btn-a" href="https://opteamize.ch">Je veux le même pour mon commerce</a></div></div>
+<div class="tel" aria-label="Simulation d'une conversation avec l'assistant IA"><div class="ecran"><div class="tete"><span class="av">IA</span><div><b>Assistant du site</b><small>en ligne</small></div></div>
+<div class="fil" id="fil" aria-live="polite"><div class="bulle ia">Bonjour ! Que voulez-vous changer sur le site de Le Comptoir des Saisons aujourd'hui ?</div></div>
+<div class="saisie">Écrire un message…</div></div></div></div></section><section class="dark" id="infos"><div class="wrap infos">
+<div><span class="sur" style="color:var(--acc2)">Infos pratiques</span><h2>Venez nous voir</h2>
+<p style="margin-top:16px">Rue de l’Exemple 12, 1003 Lausanne<br><a href="tel:+41210000000">021 000 00 00</a> · <a href="mailto:bonjour@exemple.ch">bonjour@exemple.ch</a></p>
+<table class="horaires" aria-label="Horaires"><tr id="h-0"><td>Lundi</td><td>Fermé</td></tr><tr id="h-1"><td>Mardi – vendredi</td><td>11h30–14h · 18h30–22h</td></tr><tr id="h-2"><td>Samedi</td><td>18h30–23h</td></tr><tr id="h-3"><td>Dimanche</td><td>Fermé</td></tr></table></div>
+<iframe class="plan" title="Plan" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=6.622,46.518,6.638,46.526&layer=mapnik"></iframe>
+<form data-ex="Exemple : sur votre site, la demande de réservation arrive directement par e-mail ou par SMS." id="reserver"><h3>Réserver une table</h3><div class="champs"><label>Nom<input name="nom" required></label><label>Téléphone<input name="tel" type="tel"></label><label>Date<input name="date" type="date"></label><label>Personnes<select name="n"><option>2</option><option>3</option><option>4</option><option>5</option><option>6 et +</option></select></label><label class="plein">Heure<select name="h"><option>12h00</option><option>12h30</option><option>19h00</option><option>19h30</option><option>20h30</option></select></label></div><button class="btn btn-a" type="submit">Envoyer la demande</button><p class="ok" role="status"></p></form>
+</div></section></main>
+<footer><div class="wrap"><span>Le Comptoir des Saisons · Rue de l’Exemple 12, 1003 Lausanne · commerce fictif</span><span>Site d'exemple réalisé par <a href="https://opteamize.ch">Opteamize</a> · photos Unsplash</span></div></footer>
+<script>const ACTIONS=[{demande:"Mets en plat du jour demain : risotto aux cèpes, 24.–",reponse:"C'est fait ✅ Le plat du jour est mis à jour sur le site.",faire(){const h=document.getElementById('plat-du-jour');h.textContent='Plat du jour : risotto aux cèpes';h.closest('.encadre').querySelector('.px').textContent='24.–';return h.closest('.encadre')}},
+{demande:"On est fermés le lundi 24 novembre, mets un bandeau",reponse:"C'est en ligne ✅ Un bandeau s'affiche en haut de toutes les pages.",faire(){const a=document.getElementById('annonce');a.textContent='Exceptionnellement fermé le lundi 24 novembre. Merci de votre compréhension !';a.classList.add('on');return a}},
+{demande:"Le filet de perche passe à 38.–",reponse:"Prix mis à jour ✅ Filets de perche du lac : 38.–",faire(){document.getElementById('t-c1').click();const p=document.getElementById('i-perche');p.querySelector('.px').textContent='38.–';return p}}];
+const burger=document.querySelector('.burger'),menu=document.getElementById('menu');
+burger.addEventListener('click',()=>{const o=menu.classList.toggle('ouvert');burger.setAttribute('aria-expanded',o)});
+menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{menu.classList.remove('ouvert');burger.setAttribute('aria-expanded',false)}));
+const tabs=[...document.querySelectorAll('[role=tab]')];
+tabs.forEach(t=>t.addEventListener('click',()=>tabs.filter(x=>x.parentNode===t.parentNode).forEach(x=>{const on=x===t;x.setAttribute('aria-selected',on);document.getElementById(x.getAttribute('aria-controls')).hidden=!on})));
+document.querySelectorAll('form[data-ex]').forEach(f=>f.addEventListener('submit',e=>{e.preventDefault();const ok=f.querySelector('.ok');ok.style.display='block';ok.textContent=f.dataset.ex}));
+// démonstration du concept
+const fil=document.getElementById('fil');
+const dormir=ms=>new Promise(r=>setTimeout(r,ms));
+function bulle(cls,html){const b=document.createElement('div');b.className='bulle '+cls;b.innerHTML=html;fil.appendChild(b);fil.scrollTop=fil.scrollHeight;return b}
+function surligner(el){if(!el)return;el.classList.remove('nouveau');void el.offsetWidth;el.classList.add('nouveau');el.scrollIntoView({behavior:'smooth',block:'center'})}
+document.querySelectorAll('.essais button').forEach(b=>b.addEventListener('click',async()=>{
+  const a=ACTIONS[b.dataset.i];document.querySelectorAll('.essais button').forEach(x=>x.disabled=true);
+  if(innerWidth<900){document.querySelector('.tel').scrollIntoView({behavior:'smooth',block:'center'});await dormir(500)}
+  bulle('moi',a.demande);await dormir(700);
+  const t=bulle('ia','<span class="tape"><span></span><span></span><span></span></span>');await dormir(1600);
+  const cible=a.faire();t.innerHTML=a.reponse+'<br><a role="button" tabindex="0">Voir sur le site ↓</a>';
+  const voir=t.querySelector('a');voir.addEventListener('click',()=>surligner(cible));voir.addEventListener('keydown',e=>{if(e.key==='Enter')surligner(cible)});
+  fil.scrollTop=fil.scrollHeight;b.dataset.fait=1;
+  document.querySelectorAll('.essais button').forEach(x=>x.disabled=!!x.dataset.fait);
+}));
+</script>
+</body></html>
